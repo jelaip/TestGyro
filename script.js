@@ -6,21 +6,26 @@ const gx = document.querySelector('.gx');
 const gy = document.querySelector('.gy');
 const gz = document.querySelector('.gz');
 
-console.log(ax);
-
 if (window.DeviceOrientationEvent) {
     window.addEventListener(
         "deviceorientation",
         (event) => {
-            gx.innerHTML = event.alpha; // alpha: rotation around z-axis
-            gy.innerHTML = event.gamma; // gamma: left to right
-            gz.innerHTML = event.beta; // beta: front back motion
-
-
+            gx.innerHTML = event.alpha;
+            gy.innerHTML = event.gamma;
+            gz.innerHTML = event.beta;
         },
         true
     );
 }
 
-
-ax.innerHTML = 'test';
+if (window.DeviceMotionEvent) {
+    window.addEventListener(
+        "devicemotion",
+        (event) => {
+            ax.innerHTML = event.acceleration.x;
+            ay.innerHTML = event.acceleration.y;
+            az.innerHTML = event.acceleration.z;
+        },
+        true
+    );
+}
