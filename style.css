@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    background-color: black;
+    color: white;
+}
+
+#accel {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+}
+
+.slider {
+    width: 50%;
+    height: 100px;
+    background: #d3d3d3;
+}
+
+#valueTxt {
+    position: absolute;
+    width: 50%;
+}
+
+.chart {
+    position: absolute;
+    max-width: 500px;
+    max-height: 500px;
+    left: 50%;
+    width: 50%;
+    background-color: white;
+}
+
+#gyro {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    height: 50%;
+}
+
+p {
+    font-size: auto;
+}

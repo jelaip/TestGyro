@@ -7,6 +7,12 @@ const gy = document.querySelector('.gy');
 const gz = document.querySelector('.gz');
 const sliderA = document.querySelector('#sliderA');
 const sliderG = document.querySelector('#sliderG');
+const sliderPA = document.querySelector('#sliderPA');
+const sliderPG = document.querySelector('#sliderPG');
+
+let maxPointsA = sliderPA.value;
+let maxPointsG = sliderPG.value;
+
 let nbpointsAcc = sliderA.value;
 let nbpointsGyr = sliderG.value;
 let xValuesAcc = [];
@@ -15,6 +21,9 @@ let zValuesAcc = [];
 let xValuesGyr = [];
 let yValuesGyr = [];
 let zValuesGyr = [];
+
+let secondeAcc = [];
+let secondeGyr = [];
 
 let xValuesAccTemp = [];
 let yValuesAccTemp = [];
@@ -35,6 +44,15 @@ let cleanTabAcc = () => {
     zValuesAccTemp = [];
 }
 
+sliderPA.addEventListener('change', (e) => {
+    maxPointsA = e.target.value;
+});
+
+sliderPG.addEventListener('change', (e) => {
+    maxPointsG = e.target.value;
+});
+
+
 sliderA.addEventListener('change', (e) => {
     nbpointsAcc = e.target.value;
     cleanTabAcc();
@@ -47,6 +65,14 @@ sliderG.addEventListener('change', (e) => {
     console.log(nbpointsGyr);
 });
 
+// get seconde of the day
+let getSeconde = () => {
+    let date = new Date();
+    let seconde = date.getSeconds();
+    let minute = date.getMinutes();
+    let heure = date.getHours();
+    return seconde + minute * 60 + heure * 3600;
+}
 
 
 if (window.DeviceOrientationEvent) {
@@ -72,6 +98,7 @@ if (window.DeviceOrientationEvent) {
                 moyenneX /= nbpointsGyr;
                 moyenneY /= nbpointsGyr;
                 moyenneZ /= nbpointsGyr;
+                secondeGyr = getSeconde();
                 xValuesGyr.push(moyenneX);
                 yValuesGyr.push(moyenneY);
                 zValuesGyr.push(moyenneZ);
@@ -105,36 +132,42 @@ if (window.DeviceMotionEvent) {
                 moyenneX /= nbpointsAcc;
                 moyenneY /= nbpointsAcc;
                 moyenneZ /= nbpointsAcc;
+                secondeAcc = getSeconde();
                 xValuesAcc.push(moyenneX);
                 yValuesAcc.push(moyenneY);
                 zValuesAcc.push(moyenneZ);
                 cleanTabAcc();
+                while (xValuesAcc.length > maxPointsA) {
+                    xValuesAcc.shift();
+                    yValuesAcc.shift();
+                    zValuesAcc.shift();
+                    secondeAcc.shift();
+                }
+
+                new Chart("chartAccel", {
+                    type: "line",
+                    data: {
+                        labels: secondeAcc,
+                        datasets: [{
+                            data: xValuesAcc,
+                            borderColor: "red",
+                            fill: false
+                        }, {
+                            data: yValuesAcc,
+                            borderColor: "green",
+                            fill: false
+                        }, {
+                            data: zValuesAcc,
+                            borderColor: "blue",
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        legend: { display: false }
+                    }
+                });
             }
         },
         true
     );
 }
-
-
-new Chart("chartAccel", {
-    type: "line",
-    data: {
-        labels: xValues,
-        datasets: [{
-            data: xValuesAcc,
-            borderColor: "red",
-            fill: false
-        }, {
-            data: yValuesAcc,
-            borderColor: "green",
-            fill: false
-        }, {
-            data: zValuesAcc,
-            borderColor: "blue",
-            fill: false
-        }]
-    },
-    options: {
-        legend: { display: false }
-    }
-});
