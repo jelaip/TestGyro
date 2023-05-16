@@ -6,20 +6,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <p>acel</p>
-    <p class="ax">x</p>
-    <p class="ay">y</p>
-    <p class="az">z</p>
-    <p>gyro</p>
-    <p class="gx">x</p>
-    <p class="gy">y</p>
-    <p class="gz">z</p>
+    <div id="accel">
+        <div id="valueTxt">
+            <p>accel</p>
+            <p class="ax">x</p>
+            <p class="ay">y</p>
+            <p class="az">z</p>
+            <!-- slider  -->
+            <input type="range" min="0" max="100" value="50" class="slider" id="sliderA">
+        </div>
+        <canvas id="chartAccel" class="chart"></canvas>
+    </div>
+    <div id="gyro">
+        <div id="valueTxt">
+            <p>gyro</p>
+            <p class="gx">x</p>
+            <p class="gy">y</p>
+            <p class="gz">z</p>
+            <!-- slider  -->
+            <input type="range" min="1" max="100" value="50" class="slider" id="sliderG">
+        </div>
+        <canvas id="chartGyro" class="chart"></canvas>
 
+    </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="./script.js"></script>
 </body>
+<style>
+    body {
+        margin: 0;
+        background-color: black;
+        color: white;
+    }
+    
+    #accel {
+        position: absolute;
+        width: 100%;
+        height: 50%;
+    }
+    
+    .slider {
+        width: 50%;
+        height: 100px;
+        background: #d3d3d3;
+    }
+    
+    #valueTxt {
+        position: absolute;
+        width: 50%;
+    }
+    
+    .chart {
+        position: absolute;
+        left: 50%;
+        width: 50%;
+        background-color: white;
+    }
+    
+    #gyro {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        height: 50%;
+    }
+    
+    p {
+        font-size: auto;
+    }
+</style>
 
 </html>
