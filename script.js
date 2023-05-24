@@ -7,11 +7,11 @@ const gy = document.querySelector('.gy');
 const gz = document.querySelector('.gz');
 const sliderA = document.querySelector('#sliderA');
 const sliderG = document.querySelector('#sliderG');
-const sliderPA = document.querySelector('#sliderPA');
-const sliderPG = document.querySelector('#sliderPG');
+//const sliderPA = document.querySelector('#sliderPA');
+//const sliderPG = document.querySelector('#sliderPG');
 
-let maxPointsA = sliderPA.value;
-let maxPointsG = sliderPG.value;
+let maxPointsA = 100
+let maxPointsG = 100
 
 let nbpointsAcc = sliderA.value;
 let nbpointsGyr = sliderG.value;
@@ -39,18 +39,18 @@ let cleanTabGyr = () => {
 }
 
 let cleanTabAcc = () => {
-    xValuesAccTemp = [];
-    yValuesAccTemp = [];
-    zValuesAccTemp = [];
-}
+        xValuesAccTemp = [];
+        yValuesAccTemp = [];
+        zValuesAccTemp = [];
+    }
+    /*
+    sliderPA.addEventListener('change', (e) => {
+        maxPointsA = e.target.value;
+    });
 
-sliderPA.addEventListener('change', (e) => {
-    maxPointsA = e.target.value;
-});
-
-sliderPG.addEventListener('change', (e) => {
-    maxPointsG = e.target.value;
-});
+    sliderPG.addEventListener('change', (e) => {
+        maxPointsG = e.target.value;
+    });*/
 
 
 sliderA.addEventListener('change', (e) => {
@@ -79,9 +79,9 @@ if (window.DeviceOrientationEvent) {
     window.addEventListener(
         "deviceorientation",
         (event) => {
-            gx.innerHTML = event.alpha;
-            gy.innerHTML = event.gamma;
-            gz.innerHTML = event.beta;
+            //gx.innerHTML = event.alpha;
+            //gy.innerHTML = event.gamma;
+            //gz.innerHTML = event.beta;
             xValuesGyrTemp.push(event.alpha);
             yValuesGyrTemp.push(event.gamma);
             zValuesGyrTemp.push(event.beta);
@@ -98,6 +98,9 @@ if (window.DeviceOrientationEvent) {
                 moyenneX /= nbpointsGyr;
                 moyenneY /= nbpointsGyr;
                 moyenneZ /= nbpointsGyr;
+                gx.innerHTML = moyenneX;
+                gy.innerHTML = moyenneY;
+                gz.innerHTML = moyenneZ;
                 secondeGyr = getSeconde();
                 xValuesGyr.push(moyenneX);
                 yValuesGyr.push(moyenneY);
